@@ -15,17 +15,26 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 类 名 称：DynamicDataSource.java
- * 功能说明：
- * 开发人员：weinh
- * 开发时间：2017年09月19日
+ * @author weinh
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private DataSource writeDataSource; //写数据源
-    private List<DataSource> readDataSources; //多个读数据源
-    private int readDataSourceSize; //读数据源个数
-    private int readDataSourcePollPattern;//获取读数据源方式，0：随机，1：轮询
+    /**
+     * 写数据源
+     */
+    private DataSource writeDataSource;
+    /**
+     * 多个读数据源
+     */
+    private List<DataSource> readDataSources;
+    /**
+     * 读数据源个数
+     */
+    private int readDataSourceSize;
+    /**
+     * 获取读数据源方式，0：随机，1：轮询
+     */
+    private int readDataSourcePollPattern;
     private AtomicInteger counter = new AtomicInteger(0);
     private final Lock lock = new ReentrantLock();
 

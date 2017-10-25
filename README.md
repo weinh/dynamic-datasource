@@ -11,8 +11,6 @@ maven依赖
 spring boot配置文件(application.yml)
 ```yaml
 ds-helper:
-  driver-class-name: com.mysql.jdbc.Driver
-  type: com.alibaba.druid.pool.DruidDataSource
   read-data-source-poll-pattern: 1
   write:
     url: jdbc:mysql://rm-bp1y4sxrvbln69yi9o.mysql.rds.aliyuncs.com/crm_test?useUnicode=true&characterEncoding=UTF-8&useSSL=false
@@ -26,15 +24,15 @@ ds-helper:
       username: hscrm
       password: hscrm@123
 ```
-type：数据源类型
-
 read-data-source-poll-pattern：读数据源轮询模式，1循环，其他随机
 
 write：写数据源
 
 read：读数据源，支持配置多个，可以一写多读
 
-连接池的具体属性请参考DataSourceProperties配置
+连接池的具体属性请参考DruidDataSource配置
+
+**注：集成spring boot的方式必须使用Druid数据源**
 
 ## spring集成
 待续

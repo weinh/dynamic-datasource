@@ -22,10 +22,7 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 类 名 称：DynamicPlugin.java
- * 功能说明：
- * 开发人员：weinh
- * 开发时间：2017年09月19日
+ * @author weinh
  */
 @Intercepts({
         @Signature(type = Executor.class, method = "update", args = {
@@ -35,11 +32,11 @@ import java.util.concurrent.ConcurrentHashMap;
                 ResultHandler.class})})
 public class DynamicPlugin implements Interceptor {
 
-    protected static final Logger logger = LoggerFactory.getLogger(DynamicPlugin.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private static final String REGEX = ".*insert\\u0020.*|.*delete\\u0020.*|.*update\\u0020.*";
 
-    private static final Map<String, DynamicDataSourceGlobal> cacheMap = new ConcurrentHashMap<>();
+    private static final Map<String, DynamicDataSourceGlobal> CACHE_MAP = new ConcurrentHashMap<>();
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -47,8 +44,8 @@ public class DynamicPlugin implements Interceptor {
         if (!synchronizationActive) {
             Object[] objects = invocation.getArgs();
             MappedStatement ms = (MappedStatement) objects[0];
-            DynamicDataSourceGlobal dynamicDataSourceGlobal = null;
-            if ((dynamicDataSourceGlobal = cacheMap.get(ms.getId())) == null) {
+            DynamicDataSourceGlobal dynamicDataSourceGlobal;
+            if ((dynamicDataSourceGlobal = CACHE_MAP.get(ms.getId())) == null) {
                 //读方法
                 if (ms.getSqlCommandType().equals(SqlCommandType.SELECT)) {
                     //!selectKey 为自增id查询主键(SELECT LAST_INSERT_ID() )方法，使用主库
@@ -67,7 +64,7 @@ public class DynamicPlugin implements Interceptor {
                     dynamicDataSourceGlobal = DynamicDataSourceGlobal.WRITE;
                 }
                 logger.warn("设置方法[{}] use [{}] Strategy, SqlCommandType [{}]..", ms.getId(), dynamicDataSourceGlobal.name(), ms.getSqlCommandType().name());
-                cacheMap.put(ms.getId(), dynamicDataSourceGlobal);
+                CACHE_MAP.put(ms.getId(), dynamicDataSourceGlobal);
             }
             DynamicDataSourceHolder.putDataSource(dynamicDataSourceGlobal);
         }
@@ -85,6 +82,5 @@ public class DynamicPlugin implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
-        //
     }
 }

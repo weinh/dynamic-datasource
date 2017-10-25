@@ -1,27 +1,23 @@
 package com.yongle.dshelper;
 
 /**
- * 类 名 称：DynamicDataSourceHolder.java
- * 功能说明：
- * 开发人员：weinh
- * 开发时间：2017年09月19日
+ * @author weinh
  */
 public class DynamicDataSourceHolder {
-    private static final ThreadLocal<DynamicDataSourceGlobal> holder = new ThreadLocal<>();
+    private static final ThreadLocal<DynamicDataSourceGlobal> HOLDER = new ThreadLocal<>();
 
     private DynamicDataSourceHolder() {
-        //
     }
 
     public static void putDataSource(DynamicDataSourceGlobal dataSource) {
-        holder.set(dataSource);
+        HOLDER.set(dataSource);
     }
 
     public static DynamicDataSourceGlobal getDataSource() {
-        return holder.get();
+        return HOLDER.get();
     }
 
     public static void clearDataSource() {
-        holder.remove();
+        HOLDER.remove();
     }
 }

@@ -11,10 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 类 名 称：DynamicMyBatisPluginConfig.java
- * 功能说明：
- * 开发人员：weinh
- * 开发时间：2017年09月26日
+ * @author weinh
  */
 @Configuration
 @AutoConfigureAfter(PageHelperAutoConfiguration.class)
