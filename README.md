@@ -2,11 +2,11 @@
 ## spring boot集成
 maven依赖
 ```xml
-        <dependency>
-            <groupId>com.yongle.dshelper</groupId>
-            <artifactId>dshelper-spring-boot-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+<dependency>
+  <groupId>com.yongle.dshelper</groupId>
+  <artifactId>dshelper-spring-boot-starter</artifactId>
+  <version>1.0-SNAPSHOT</version>
+</dependency>
 ```
 spring boot配置文件(application.yml)
 ```yaml
