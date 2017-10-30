@@ -50,7 +50,7 @@ maven依赖
 </dependency>
 ```
 spring 配置文件（applicationContext-dao.xml）
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -150,8 +150,11 @@ spring 配置文件（applicationContext-dao.xml）
 </beans>
 ```
 `com.yongle.dshelper.DynamicDataSource`定义动态数据源
+
 `writeDataSource`写数据源
+
 `readDataSources`读数据源
+
 `readDataSourcePollPattern`读数据源轮询方式：1循环，其他随机
 
 **这里可以根据需要选择自己使用的连接池**
